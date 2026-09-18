@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<!--
+    Форма добавления/редактирования книги.
+    Контроллер разметки — BookFormController.
+-->
+<VBox xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="ru.home.library.ui.BookFormController"
+      styleClass="form-root" spacing="12" prefWidth="780">
+
+    <Label text="Книга" styleClass="section-label"/>
+
+    <GridPane hgap="10" vgap="6">
+        <columnConstraints>
+            <ColumnConstraints minWidth="130"/>
+            <ColumnConstraints hgrow="ALWAYS" fillWidth="true"/>
+        </columnConstraints>
+
+        <Label text="Название *:"/>
+        <TextField fx:id="titleField" promptText="Обязательное поле" GridPane.columnIndex="1"/>
+        <Label text="Издательство:" GridPane.rowIndex="1"/>
+        <TextField fx:id="publisherField" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+        <Label text="Год издания:" GridPane.rowIndex="2"/>
+        <TextField fx:id="yearField" promptText="Например, 2013" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+        <Label text="ISBN:" GridPane.rowIndex="3"/>
+        <TextField fx:id="isbnField" GridPane.columnIndex="1" GridPane.rowIndex="3"/>
+        <Label text="Раздел:" GridPane.rowIndex="4"/>
+        <ComboBox fx:id="categoryCombo" prefWidth="240" GridPane.columnIndex="1" GridPane.rowIndex="4"/>
+        <Label text="Происхождение:" GridPane.rowIndex="5"/>
+        <ComboBox fx:id="originCombo" prefWidth="240" GridPane.columnIndex="1" GridPane.rowIndex="5"/>
+        <Label text="Наличие:" GridPane.rowIndex="6"/>
+        <ComboBox fx:id="availabilityCombo" prefWidth="240" GridPane.columnIndex="1" GridPane.rowIndex="6"/>
+        <Label text="Статус чтения:" GridPane.rowIndex="7"/>
+        <ComboBox fx:id="statusCombo" prefWidth="240" GridPane.columnIndex="1" GridPane.rowIndex="7"/>
+        <Label text="Оценка (1–10):" GridPane.rowIndex="8"/>
+        <ComboBox fx:id="ratingChoice" prefWidth="240" GridPane.columnIndex="1" GridPane.rowIndex="8"/>
+    </GridPane>
+
+    <Label text="Авторы" styleClass="section-label"/>
+
+    <HBox spacing="10">
+        <VBox spacing="4" HBox.hgrow="ALWAYS">
+            <Label text="Все авторы"/>
+            <TextField fx:id="authorSearchField" promptText="Фильтр по имени"/>
+            <ListView fx:id="allAuthorsList" prefHeight="150" VBox.vgrow="ALWAYS"/>
+        </VBox>
+        <VBox spacing="8" alignment="CENTER">
+            <Button text="→" onAction="#onMoveAuthorToBook"/>
+            <Button text="←" onAction="#onMoveAuthorBack"/>
+        </VBox>
+        <VBox spacing="4" HBox.hgrow="ALWAYS">
+            <Label text="Авторы книги"/>
+            <HBox spacing="6">
+                <Button text="Добавить автора" onAction="#onCreateAuthor" HBox.hgrow="ALWAYS" maxWidth="Infinity"/>
+            </HBox>
+            <ListView fx:id="selectedAuthorsList" prefHeight="150" VBox.vgrow="ALWAYS"/>
+        </VBox>
+    </HBox>
+
+    <Label text="Экземпляры" styleClass="section-label"/>
+
+    <HBox spacing="6" alignment="CENTER_LEFT">
+        <TextField fx:id="copyLabelField" promptText="Инвентарный номер" prefWidth="170"/>
+        <TextField fx:id="copyConditionField" promptText="Состояние" prefWidth="170"/>
+        <TextField fx:id="copyYearField" promptText="Год поступления" prefWidth="130"/>
+        <Button text="Добавить экземпляр" onAction="#onAddCopy"/>
+        <Button text="Удалить выбранный" onAction="#onRemoveCopy"/>
+    </HBox>
+
+    <TableView fx:id="copyTable" prefHeight="140">
+        <columns>
+            <TableColumn fx:id="copyLabelCol" text="Инвентарный номер" prefWidth="250"/>
+            <TableColumn fx:id="copyConditionCol" text="Состояние" prefWidth="250"/>
+            <TableColumn fx:id="copyYearCol" text="Год поступления" prefWidth="150"/>
+        </columns>
+    </TableView>
+</VBox>

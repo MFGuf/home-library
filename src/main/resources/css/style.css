@@ -1,0 +1,113 @@
+/* Таблица стилей «Картотеки домашней библиотеки».
+   Подключается и к главному окну, и к диалоговым формам. */
+
+.root {
+    -fx-font-family: "Segoe UI", "Arial", sans-serif;
+    -fx-font-size: 13px;
+}
+
+/* -------- Шапка окна -------- */
+.header-bar {
+    -fx-background-color: linear-gradient(to right, #3949ab, #5c6bc0);
+    -fx-padding: 14 18 14 18;
+    -fx-spacing: 3px;
+}
+.header-title {
+    -fx-text-fill: white;
+    -fx-font-size: 19px;
+    -fx-font-weight: bold;
+}
+.header-subtitle {
+    -fx-text-fill: rgba(255, 255, 255, 0.85);
+    -fx-font-size: 11px;
+}
+
+/* -------- Вкладки -------- */
+.tab-pane > .tab-header-area > .tab-header-background {
+    -fx-background-color: #e8eaf6;
+}
+.tab-pane {
+    -fx-tab-min-width: 120px;
+}
+.tab .tab-label {
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+}
+.tab-pane-content {
+    -fx-padding: 10;
+    -fx-spacing: 8;
+}
+
+/* -------- Панели инструментов -------- */
+.toolbar {
+    -fx-background-color: #f5f6fa;
+    -fx-padding: 8;
+    -fx-spacing: 8;
+    -fx-alignment: center-left;
+}
+
+/* -------- Кнопки -------- */
+.button {
+    -fx-cursor: hand;
+}
+.primary-button {
+    -fx-background-color: #3949ab;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+}
+.primary-button:hover {
+    -fx-background-color: #303f9f;
+}
+.danger-button {
+    -fx-background-color: #d32f2f;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+}
+.danger-button:hover {
+    -fx-background-color: #c62828;
+}
+
+/* -------- Таблицы -------- */
+.table-view {
+    -fx-border-color: #cfd8dc;
+}
+.table-view .column-header-background {
+    -fx-background-color: #eceff1;
+}
+.table-view .column-header .label {
+    -fx-font-weight: bold;
+}
+
+/* -------- Панель подробностей -------- */
+.details-panel {
+    -fx-background-color: #fafbfd;
+    -fx-border-color: #e0e0e0;
+    -fx-border-radius: 4;
+    -fx-padding: 10;
+    -fx-spacing: 4;
+}
+.section-label {
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #37474f;
+}
+.detail-value {
+    -fx-font-weight: bold;
+}
+.hint-label {
+    -fx-text-fill: #78909c;
+    -fx-font-size: 12px;
+}
+.summary-label {
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #37474f;
+}
+
+/* -------- Элементы форм -------- */
+.form-root {
+    -fx-padding: 16;
+}
+.list-view, .text-field, .text-area, .combo-box {
+    -fx-background-radius: 3;
+}

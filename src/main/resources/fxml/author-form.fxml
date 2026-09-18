@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<!--
+    Форма добавления/редактирования автора.
+    Контроллер разметки — AuthorFormController.
+-->
+<VBox xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="ru.home.library.ui.AuthorFormController"
+      styleClass="form-root" spacing="12" prefWidth="430" prefHeight="160">
+
+    <GridPane hgap="10" vgap="6">
+        <columnConstraints>
+            <ColumnConstraints minWidth="120"/>
+            <ColumnConstraints hgrow="ALWAYS" fillWidth="true"/>
+        </columnConstraints>
+        <Label text="Имя *:"/>
+        <TextField fx:id="nameField" promptText="Фамилия Имя Отчество" GridPane.columnIndex="1"/>
+        <Label text="Год рождения:" GridPane.rowIndex="1"/>
+        <TextField fx:id="birthYearField" promptText="Например, 1965" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+    </GridPane>
+</VBox>

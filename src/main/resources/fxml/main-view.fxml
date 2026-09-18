@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<!--
+    Главное окно «Картотеки домашней библиотеки».
+    Все разделы приложения расположены в одном окне в виде вкладок.
+    Контроллер разметки — MainController.
+-->
+<BorderPane xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="ru.home.library.ui.MainController"
+            prefWidth="1180.0" prefHeight="720.0">
+
+    <top>
+        <VBox styleClass="header-bar">
+            <Label text="Картотека домашней библиотеки" styleClass="header-title"/>
+            <Label fx:id="dbInfoLabel" styleClass="header-subtitle"/>
+        </VBox>
+    </top>
+
+    <center>
+        <TabPane tabClosingPolicy="UNAVAILABLE">
+            <!-- ==================== ВКЛАДКА «КНИГИ» ==================== -->
+            <Tab text="Книги">
+                <VBox styleClass="tab-pane-content">
+                    <HBox spacing="8" styleClass="toolbar" alignment="CENTER_LEFT">
+                        <Label text="Поиск:"/>
+                        <TextField fx:id="searchField" prefWidth="300" promptText="Название, автор, издательство, ISBN"
+                                   onAction="#onSearch"/>
+                        <Label text="Раздел:"/>
+                        <ComboBox fx:id="categoryFilter" prefWidth="150"/>
+                        <Label text="Статус:"/>
+                        <ComboBox fx:id="statusFilter" prefWidth="130"/>
+                        <Label text="Наличие:"/>
+                        <ComboBox fx:id="availabilityFilter" prefWidth="110"/>
+                        <Label text="Оценка ≥:"/>
+                        <ComboBox fx:id="ratingFilter" prefWidth="80"/>
+                        <Button text="Поиск" onAction="#onSearch"/>
+                        <Button text="Сбросить" onAction="#onResetFilters"/>
+                    </HBox>
+
+                    <HBox spacing="8" styleClass="toolbar">
+                        <Button text="Добавить книгу" styleClass="primary-button" onAction="#onAddBook"/>
+                        <Button text="Изменить" onAction="#onEditBook"/>
+                        <Button text="Удалить" styleClass="danger-button" onAction="#onDeleteBook"/>
+                        <Region HBox.hgrow="ALWAYS"/>
+                        <Label fx:id="resultInfoLabel" styleClass="hint-label"/>
+                    </HBox>
+
+                    <TableView fx:id="bookTable" VBox.vgrow="ALWAYS" tableMenuButtonVisible="false">
+                        <columns>
+                            <TableColumn fx:id="bookTitleCol" text="Название" prefWidth="240"/>
+                            <TableColumn fx:id="bookAuthorsCol" text="Авторы" prefWidth="200"/>
+                            <TableColumn fx:id="bookCategoryCol" text="Раздел" prefWidth="150"/>
+                            <TableColumn fx:id="bookPublisherCol" text="Издательство" prefWidth="140"/>
+                            <TableColumn fx:id="bookYearCol" text="Год" prefWidth="55"/>
+                            <TableColumn fx:id="bookStatusCol" text="Статус чтения" prefWidth="120"/>
+                            <TableColumn fx:id="bookAvailabilityCol" text="Наличие" prefWidth="100"/>
+                            <TableColumn fx:id="bookRatingCol" text="Оценка" prefWidth="65"/>
+                            <TableColumn fx:id="bookCopiesCol" text="Экз." prefWidth="50"/>
+                        </columns>
+                    </TableView>
+
+                    <VBox styleClass="details-panel">
+                        <Label text="Сведения о выбранной книге" styleClass="section-label"/>
+                        <GridPane hgap="14" vgap="3">
+                            <columnConstraints>
+                                <ColumnConstraints minWidth="150"/>
+                                <ColumnConstraints hgrow="ALWAYS" fillWidth="true"/>
+                            </columnConstraints>
+                            <Label text="Название:"/>
+                            <Label fx:id="detailTitle" wrapText="true" styleClass="detail-value" GridPane.columnIndex="1"/>
+                            <Label text="Авторы:" GridPane.rowIndex="1"/>
+                            <Label fx:id="detailAuthors" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+                            <Label text="Издательство, год:" GridPane.rowIndex="2"/>
+                            <Label fx:id="detailPublisherYear" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+                            <Label text="ISBN:" GridPane.rowIndex="3"/>
+                            <Label fx:id="detailIsbn" GridPane.columnIndex="1" GridPane.rowIndex="3"/>
+                            <Label text="Раздел:" GridPane.rowIndex="4"/>
+                            <Label fx:id="detailCategory" GridPane.columnIndex="1" GridPane.rowIndex="4"/>
+                            <Label text="Происхождение:" GridPane.rowIndex="5"/>
+                            <Label fx:id="detailOrigin" GridPane.columnIndex="1" GridPane.rowIndex="5"/>
+                            <Label text="Наличие:" GridPane.rowIndex="6"/>
+                            <Label fx:id="detailAvailability" GridPane.columnIndex="1" GridPane.rowIndex="6"/>
+                            <Label text="Статус чтения:" GridPane.rowIndex="7"/>
+                            <Label fx:id="detailStatus" GridPane.columnIndex="1" GridPane.rowIndex="7"/>
+                            <Label text="Оценка:" GridPane.rowIndex="8"/>
+                            <Label fx:id="detailRating" GridPane.columnIndex="1" GridPane.rowIndex="8"/>
+                            <Label text="Экземпляров:" GridPane.rowIndex="9"/>
+                            <Label fx:id="detailCopies" GridPane.columnIndex="1" GridPane.rowIndex="9"/>
+                        </GridPane>
+                    </VBox>
+                </VBox>
+            </Tab>
+
+            <!-- ==================== ВКЛАДКА «АВТОРЫ» ==================== -->
+            <Tab text="Авторы">
+                <VBox styleClass="tab-pane-content">
+                    <HBox spacing="8" styleClass="toolbar">
+                        <Button text="Добавить автора" styleClass="primary-button" onAction="#onAddAuthor"/>
+                        <Button text="Изменить" onAction="#onEditAuthor"/>
+                        <Button text="Удалить" styleClass="danger-button" onAction="#onDeleteAuthor"/>
+                        <Region HBox.hgrow="ALWAYS"/>
+                        <Label fx:id="authorInfoLabel" styleClass="hint-label"/>
+                    </HBox>
+                    <TableView fx:id="authorTable" VBox.vgrow="ALWAYS">
+                        <columns>
+                            <TableColumn fx:id="authorNameCol" text="Автор" prefWidth="350"/>
+                            <TableColumn fx:id="authorYearCol" text="Год рождения" prefWidth="150"/>
+                            <TableColumn fx:id="authorBooksCol" text="Книг в библиотеке" prefWidth="180"/>
+                        </columns>
+                    </TableView>
+                    <Label text="Двойной клик по строке открывает редактирование." styleClass="hint-label"/>
+                </VBox>
+            </Tab>
+
+            <!-- ==================== ВКЛАДКА «РАЗДЕЛЫ» ==================== -->
+            <Tab text="Разделы">
+                <VBox styleClass="tab-pane-content">
+                    <HBox spacing="8" styleClass="toolbar">
+                        <Button text="Добавить раздел" styleClass="primary-button" onAction="#onAddCategory"/>
+                        <Button text="Изменить" onAction="#onEditCategory"/>
+                        <Button text="Удалить" styleClass="danger-button" onAction="#onDeleteCategory"/>
+                        <Region HBox.hgrow="ALWAYS"/>
+                        <Label fx:id="categoryInfoLabel" styleClass="hint-label"/>
+                    </HBox>
+                    <TableView fx:id="categoryTable" VBox.vgrow="ALWAYS">
+                        <columns>
+                            <TableColumn fx:id="categoryNameCol" text="Раздел" prefWidth="220"/>
+                            <TableColumn fx:id="categoryDescriptionCol" text="Описание" prefWidth="420"/>
+                            <TableColumn fx:id="categoryBooksCol" text="Книг" prefWidth="100"/>
+                        </columns>
+                    </TableView>
+                    <Label text="Двойной клик по строке открывает редактирование." styleClass="hint-label"/>
+                </VBox>
+            </Tab>
+
+            <!-- ==================== ВКЛАДКА «ИНВЕНТАРИЗАЦИЯ» ==================== -->
+            <Tab text="Инвентаризация">
+                <VBox styleClass="tab-pane-content">
+                    <HBox spacing="8" styleClass="toolbar" alignment="CENTER_LEFT">
+                        <Label fx:id="inventorySummaryLabel" styleClass="summary-label" HBox.hgrow="ALWAYS" maxWidth="Infinity"/>
+                        <Button text="Обновить" onAction="#onRefreshInventory"/>
+                        <Button text="Экспорт в CSV" onAction="#onExportCsv"/>
+                    </HBox>
+                    <TableView fx:id="inventoryTable" VBox.vgrow="ALWAYS">
+                        <columns>
+                            <TableColumn fx:id="invNumberCol" text="№" prefWidth="50"/>
+                            <TableColumn fx:id="invTitleCol" text="Книга" prefWidth="280"/>
+                            <TableColumn fx:id="invAuthorsCol" text="Авторы" prefWidth="220"/>
+                            <TableColumn fx:id="invCategoryCol" text="Раздел" prefWidth="150"/>
+                            <TableColumn fx:id="invOriginCol" text="Происхождение" prefWidth="130"/>
+                            <TableColumn fx:id="invCopiesCol" text="Экземпляров" prefWidth="100"/>
+                            <TableColumn fx:id="invAvailabilityCol" text="Наличие" prefWidth="110"/>
+                            <TableColumn fx:id="invRatingCol" text="Оценка" prefWidth="80"/>
+                        </columns>
+                    </TableView>
+                    <Label text="Экземпляры выбранной книги:" styleClass="section-label"/>
+                    <TableView fx:id="inventoryCopyTable" prefHeight="165">
+                        <columns>
+                            <TableColumn fx:id="invCopyLabelCol" text="Инвентарный номер" prefWidth="280"/>
+                            <TableColumn fx:id="invCopyConditionCol" text="Состояние" prefWidth="280"/>
+                            <TableColumn fx:id="invCopyYearCol" text="Год поступления" prefWidth="160"/>
+                        </columns>
+                    </TableView>
+                </VBox>
+            </Tab>
+        </TabPane>
+    </center>
+</BorderPane>
